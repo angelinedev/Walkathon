@@ -1,4 +1,4 @@
-﻿import { motion } from 'framer-motion';
+import { motion } from 'framer-motion';
 
 function AboutPage() {
   return (
@@ -17,6 +17,19 @@ function AboutPage() {
           Through running and community engagement, participants support a mission that encourages health, awareness,
           and social responsibility.
         </p>
+      </motion.section>
+
+      <motion.section className="card marathon-gallery" initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+        <h2>Marathon Memories</h2>
+        <p>Look through moments from past runs and community participation.</p>
+        <div className="gallery-grid gallery-three">
+          <img src="https://images.pexels.com/photos/2402777/pexels-photo-2402777.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Marathon runners on bridge" />
+          <img src="https://images.pexels.com/photos/3621181/pexels-photo-3621181.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="City marathon race" />
+          <img src="https://images.pexels.com/photos/3621104/pexels-photo-3621104.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Runner carrying Indian flag" />
+          <img src="https://images.pexels.com/photos/2284166/pexels-photo-2284166.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Community road run" />
+          <img src="https://images.pexels.com/photos/1072705/pexels-photo-1072705.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Crowd start point marathon" />
+          <img src="https://images.pexels.com/photos/3775592/pexels-photo-3775592.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Large group run from top view" />
+        </div>
       </motion.section>
 
       <motion.section className="card" initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>

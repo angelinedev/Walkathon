@@ -19,11 +19,20 @@ function HomePage() {
 
       <section className="hero-intro card">
         <p className="eyebrow">OMR MARATHON 2026 POWERED BY MAATRATHAI NOKKI (TAMIL)</p>
-        <h1>Run Against Drugs. Run for a Better Future.</h1>
-        <p>
-          An anti-drug awareness marathon organized by Maatrathai Nokki Charitable Trust. Join thousands of runners
-          and families on OMR to promote a healthy, drug-free society.
-        </p>
+        <div className="hero-intro-top">
+          <div>
+            <h1>Run Against Drugs. Run for a Better Future.</h1>
+            <p>
+              An anti-drug awareness marathon organized by Maatrathai Nokki Charitable Trust. Join thousands of runners
+              and families on OMR to promote a healthy, drug-free society.
+            </p>
+          </div>
+          <aside className="date-badge-card" aria-label="Event date placeholder">
+            <p>Date : tba</p>
+            <p>Time : tba</p>
+            <p>Location : tba</p>
+          </aside>
+        </div>
         <div className="hero-actions">
           <Link to="/register" className="btn btn-primary">
             Register Now
@@ -38,21 +47,6 @@ function HomePage() {
               {item.distance}
             </span>
           ))}
-        </div>
-      </section>
-
-      <section className="date-highlight">
-        <p className="date-label">Event Date</p>
-        <h2>Date: To Be Announced</h2>
-        <p>Update this section once final date and time are confirmed.</p>
-      </section>
-
-      <section className="marathon-gallery card">
-        <h2>Marathon Moments</h2>
-        <div className="gallery-grid">
-          <img src="https://images.pexels.com/photos/2402777/pexels-photo-2402777.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Runners starting a marathon event" />
-          <img src="https://images.pexels.com/photos/3621181/pexels-photo-3621181.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Participants running on city road" />
-          <img src="https://images.pexels.com/photos/3621104/pexels-photo-3621104.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Group marathon energy and crowd support" />
         </div>
       </section>
 

@@ -83,23 +83,7 @@ function RegisterPage() {
       <section className="page-head">
         <h1>Register for OMR Marathon 2026</h1>
         <p>Be part of an inspiring movement that combines fitness with social awareness.</p>
-      </section>
-
-      <section className="date-highlight">
-        <p className="date-label">Registration Date</p>
-        <h2>Date: To Be Announced</h2>
-        <p>Update this field as soon as final race day is confirmed.</p>
-      </section>
-
-      <section className="marathon-gallery card">
-        <h2>Race Inspiration</h2>
-        <div className="gallery-grid two">
-          <img src="https://images.pexels.com/photos/3621186/pexels-photo-3621186.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Marathon runners on track" />
-          <img src="https://images.pexels.com/photos/1466795/pexels-photo-1466795.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Athletes preparing for long distance run" />
-        </div>
-      </section>
-
-      <section className="card">
+      </section>`r`n      <section className="card">
         <h2>Run Categories and Race Timing</h2>
         <div className="mobile-cards">
           {runCategories.map((category) => (
