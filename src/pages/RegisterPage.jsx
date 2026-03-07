@@ -87,31 +87,7 @@ function RegisterPage() {
 
       <section className="card">
         <h2>Run Categories and Race Timing</h2>
-
-        <div className="table-wrap desktop-only">
-          <table>
-            <thead>
-              <tr>
-                <th>Category</th>
-                <th>Distance</th>
-                <th>Eligibility</th>
-                <th>Race Timing</th>
-              </tr>
-            </thead>
-            <tbody>
-              {runCategories.map((category) => (
-                <tr key={category.name}>
-                  <td>{category.name.replace(/ - .*/, '')}</td>
-                  <td>{category.distance}</td>
-                  <td>{category.eligibility}</td>
-                  <td>{category.timing}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-
-        <div className="mobile-cards mobile-only">
+        <div className="mobile-cards">
           {runCategories.map((category) => (
             <article className="mobile-data-card" key={category.name}>
               <h3>{category.name.replace(/ - .*/, '')}</h3>
