@@ -472,6 +472,45 @@ th {
   padding-top: 0.45rem;
 }
 
+.prize-badge-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.45rem;
+  margin-top: 0.35rem;
+}
+
+.prize-badge {
+  border: 1px solid #d7e6e1;
+  border-radius: 10px;
+  padding: 0.45rem;
+  text-align: center;
+  background: #f7fbfa;
+}
+
+.prize-badge span {
+  display: block;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #35515b;
+}
+
+.prize-badge strong {
+  display: block;
+  font-size: 0.9rem;
+}
+
+.prize-badge.first {
+  background: linear-gradient(160deg, #fff8dc, #f7f0cc);
+}
+
+.prize-badge.second {
+  background: linear-gradient(160deg, #f3f5f7, #e7ecef);
+}
+
+.prize-badge.third {
+  background: linear-gradient(160deg, #fdeee3, #f9e2d3);
+}
+
 .payment-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
@@ -658,6 +697,12 @@ summary {
 
   .payment-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 520px) {
+  .prize-badge-grid {
+    grid-template-columns: 1fr;
   }
 }
 

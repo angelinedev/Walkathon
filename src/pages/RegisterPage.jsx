@@ -169,9 +169,20 @@ function RegisterPage() {
                   <p>
                     <strong>{row.category}</strong>
                   </p>
-                  <p>
-                    1st: {formatInr(row.first)} | 2nd: {formatInr(row.second)} | 3rd: {formatInr(row.third)}
-                  </p>
+                  <div className="prize-badge-grid">
+                    <div className="prize-badge first">
+                      <span>1st</span>
+                      <strong>{formatInr(row.first)}</strong>
+                    </div>
+                    <div className="prize-badge second">
+                      <span>2nd</span>
+                      <strong>{formatInr(row.second)}</strong>
+                    </div>
+                    <div className="prize-badge third">
+                      <span>3rd</span>
+                      <strong>{formatInr(row.third)}</strong>
+                    </div>
+                  </div>
                 </div>
               ))}
             </article>
