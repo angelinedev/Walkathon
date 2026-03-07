@@ -87,7 +87,8 @@ function RegisterPage() {
 
       <section className="card">
         <h2>Run Categories and Race Timing</h2>
-        <div className="table-wrap">
+
+        <div className="table-wrap desktop-only">
           <table>
             <thead>
               <tr>
@@ -109,12 +110,30 @@ function RegisterPage() {
             </tbody>
           </table>
         </div>
+
+        <div className="mobile-cards mobile-only">
+          {runCategories.map((category) => (
+            <article className="mobile-data-card" key={category.name}>
+              <h3>{category.name.replace(/ - .*/, '')}</h3>
+              <p>
+                <strong>Distance:</strong> {category.distance}
+              </p>
+              <p>
+                <strong>Eligibility:</strong> {category.eligibility}
+              </p>
+              <p>
+                <strong>Race Timing:</strong> {category.timing}
+              </p>
+            </article>
+          ))}
+        </div>
       </section>
 
       <section className="card">
         <h2>Prize Amount Table</h2>
         <p>Structured for quick readability across all categories.</p>
-        <div className="table-wrap">
+
+        <div className="table-wrap desktop-only">
           <table className="prize-main-table">
             <thead>
               <tr>
@@ -139,6 +158,24 @@ function RegisterPage() {
               )}
             </tbody>
           </table>
+        </div>
+
+        <div className="mobile-cards mobile-only">
+          {prizeAmounts.map((group) => (
+            <article className="mobile-data-card" key={group.event}>
+              <h3>{group.event}</h3>
+              {group.rows.map((row) => (
+                <div className="mobile-prize-row" key={`${group.event}-${row.category}`}>
+                  <p>
+                    <strong>{row.category}</strong>
+                  </p>
+                  <p>
+                    1st: {formatInr(row.first)} | 2nd: {formatInr(row.second)} | 3rd: {formatInr(row.third)}
+                  </p>
+                </div>
+              ))}
+            </article>
+          ))}
         </div>
       </section>
 
