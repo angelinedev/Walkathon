@@ -216,7 +216,7 @@ function RegisterPage() {
 
       <section className="card">
         <h2>Registration Submission (Google Form)</h2>
-        <p>Fill the registration details in the official Google Form. Responses are saved privately in your sheet.</p>
+        <p>Fill the registration details in the official Google Form.</p>
         <div className="hero-actions">
           <a className="btn btn-primary" href={GOOGLE_FORM_URL} target="_blank" rel="noreferrer">
             Open Google Form
@@ -270,5 +270,6 @@ function RegisterPage() {
 }
 
 export default RegisterPage;
+
 
 

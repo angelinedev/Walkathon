@@ -901,3 +901,14 @@ summary {
     margin-left: auto;
   }
 }
+
+.footer-logo-strip {
+  justify-content: flex-start;
+  margin-left: 0;
+}
+
+@media (max-width: 980px) {
+  .footer-logo-strip {
+    margin-left: 0;
+  }
+}

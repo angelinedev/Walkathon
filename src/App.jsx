@@ -95,6 +95,16 @@ function App() {
       </main>
 
       <footer className="site-footer">
+        <div className="footer-logo-strip" aria-label="Organizer logo in footer">
+          <img
+            src="/logos/maatrathai-nokki-english.jpg"
+            alt="Maatrathai Nokki English Logo"
+            className="footer-logo"
+            onError={(event) => {
+              event.currentTarget.style.display = 'none';
+            }}
+          />
+        </div>
         <div className="footer-block">
           <h3>OMR Marathon 2026</h3>
           <p>Run Against Drugs. Run for Life.</p>
@@ -107,20 +117,9 @@ function App() {
           <FaPeopleGroup aria-hidden="true" />
           <span>Together for a Drug-Free Future</span>
         </div>
-        <div className="footer-logo-strip" aria-label="Organizer logo in footer">
-          <img
-            src="/logos/maatrathai-nokki-english.jpg"
-            alt="Maatrathai Nokki English Logo"
-            className="footer-logo"
-            onError={(event) => {
-              event.currentTarget.style.display = 'none';
-            }}
-          />
-        </div>
       </footer>
     </div>
   );
 }
 
 export default App;
-
