@@ -1,81 +1,15 @@
-import { useMemo, useState } from 'react';
 import { motion } from 'framer-motion';
 import { prizeAmounts, runCategories } from '../data';
 
-const ORGANIZER_EMAIL = 'angelinehephzibahj@gmail.com';
-const WEB3FORMS_ACCESS_KEY =
-  import.meta.env.VITE_WEB3FORMS_ACCESS_KEY || '15fdc1c7-c33f-4b50-9431-d1afc1ccaef7';
+const GOOGLE_FORM_URL = import.meta.env.VITE_GOOGLE_FORM_URL || 'https://forms.gle/REPLACE_WITH_YOUR_FORM';
+const GOOGLE_SHEET_URL =
+  import.meta.env.VITE_GOOGLE_SHEET_URL ||
+  'https://docs.google.com/spreadsheets/d/REPLACE_WITH_YOUR_SHEET_ID/edit?usp=sharing';
 
-const initialForm = {
-  fullName: '',
-  dateOfBirth: '',
-  gender: '',
-  email: '',
-  phone: '',
-  city: '',
-  runCategory: '',
-  emergencyContact: '',
-  tshirtSize: '',
-  bloodGroup: '',
-  address: ''
-};
+const isFormConfigured = !GOOGLE_FORM_URL.includes('REPLACE_WITH_YOUR_FORM');
+const isSheetConfigured = !GOOGLE_SHEET_URL.includes('REPLACE_WITH_YOUR_SHEET_ID');
 
 function RegisterPage() {
-  const [formData, setFormData] = useState(initialForm);
-  const [submitted, setSubmitted] = useState(false);
-  const [submitError, setSubmitError] = useState('');
-  const [isSubmitting, setIsSubmitting] = useState(false);
-
-  const categoryOptions = useMemo(() => runCategories.map((item) => item.name), []);
-
-  const onChange = (event) => {
-    const { name, value } = event.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const onSubmit = async (event) => {
-    event.preventDefault();
-
-    setSubmitError('');
-    setSubmitted(false);
-
-    if (!WEB3FORMS_ACCESS_KEY) {
-      setSubmitError('Submission key missing. Set VITE_WEB3FORMS_ACCESS_KEY in .env to enable direct email sending.');
-      return;
-    }
-
-    setIsSubmitting(true);
-
-    try {
-      const payload = {
-        access_key: WEB3FORMS_ACCESS_KEY,
-        subject: `New OMR Marathon Registration - ${formData.fullName}`,
-        from_name: 'OMR Marathon Registration',
-        replyto: formData.email,
-        to_email: ORGANIZER_EMAIL,
-        ...formData
-      };
-
-      const response = await fetch('https://api.web3forms.com/submit', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-      });
-
-      const result = await response.json();
-      if (!response.ok || !result.success) {
-        throw new Error(result.message || 'Submission failed');
-      }
-
-      setSubmitted(true);
-      setFormData(initialForm);
-    } catch (error) {
-      setSubmitError(error.message || 'Unable to submit registration right now.');
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
   const formatInr = (value) => `Rs ${value.toLocaleString('en-IN')}`;
 
   return (
@@ -161,97 +95,47 @@ function RegisterPage() {
           <div className="pay-chip">Wallet</div>
           <div className="pay-chip">QR</div>
         </div>
-        <p className="payment-note">
-          Gateway is ready for integration. Connect your provider account (Razorpay/PayU/Cashfree) keys for live
-          transactions.
-        </p>
+        <p className="payment-note">Razorpay integration is ready to be initialized once your keys and webhook details are shared.</p>
       </section>
 
       <motion.section className="card" initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-        <h2>Registration Form</h2>
-        <form className="register-form" onSubmit={onSubmit}>
-          <label>
-            Full Name
-            <input name="fullName" value={formData.fullName} onChange={onChange} required />
-          </label>
+        <h2>Registration Submission</h2>
+        <p>
+          Registration entries are now collected through Google Form and stored directly in Google Sheets (Excel-like
+          format).
+        </p>
 
-          <label>
-            Date of Birth
-            <input type="date" name="dateOfBirth" value={formData.dateOfBirth} onChange={onChange} required />
-          </label>
+        <div className="hero-actions">
+          <a
+            className={`btn btn-primary ${isFormConfigured ? "" : "btn-disabled"}` }
+            href={GOOGLE_FORM_URL}
+            target="_blank"
+            rel="noreferrer"
+            aria-disabled={!isFormConfigured}
+          >
+            Open Google Form
+          </a>
+          <a
+            className={`btn btn-secondary ${isSheetConfigured ? "" : "btn-disabled"}` }
+            href={GOOGLE_SHEET_URL}
+            target="_blank"
+            rel="noreferrer"
+            aria-disabled={!isSheetConfigured}
+          >
+            Open Response Sheet
+          </a>
+        </div>
 
-          <label>
-            Gender
-            <select name="gender" value={formData.gender} onChange={onChange} required>
-              <option value="">Select</option>
-              <option>Male</option>
-              <option>Female</option>
-              <option>Other</option>
-            </select>
-          </label>
-
-          <label>
-            Email Address
-            <input type="email" name="email" value={formData.email} onChange={onChange} required />
-          </label>
-
-          <label>
-            Phone Number
-            <input name="phone" value={formData.phone} onChange={onChange} required />
-          </label>
-
-          <label>
-            City
-            <input name="city" value={formData.city} onChange={onChange} required />
-          </label>
-
-          <label>
-            Run Category
-            <select name="runCategory" value={formData.runCategory} onChange={onChange} required>
-              <option value="">Select category</option>
-              {categoryOptions.map((name) => (
-                <option key={name}>{name}</option>
-              ))}
-            </select>
-          </label>
-
-          <label>
-            Emergency Contact
-            <input name="emergencyContact" value={formData.emergencyContact} onChange={onChange} required />
-          </label>
-
-          <label>
-            T-Shirt Size
-            <select name="tshirtSize" value={formData.tshirtSize} onChange={onChange} required>
-              <option value="">Select size</option>
-              <option>S</option>
-              <option>M</option>
-              <option>L</option>
-              <option>XL</option>
-              <option>XXL</option>
-            </select>
-          </label>
-
-          <label>
-            Blood Group
-            <input name="bloodGroup" value={formData.bloodGroup} onChange={onChange} required />
-          </label>
-
-          <label className="full-width">
-            Address
-            <textarea name="address" value={formData.address} onChange={onChange} rows="4" required />
-          </label>
-
-          <button className="btn btn-primary" type="submit" disabled={isSubmitting}>
-            {isSubmitting ? 'Submitting...' : 'Submit Registration'}
-          </button>
-        </form>
-
-        {submitted ? <p className="success-msg">Registration submitted successfully.</p> : null}
-        {submitError ? <p className="error-msg">{submitError}</p> : null}
+        {!isFormConfigured ? (
+          <p className="error-msg">Set `VITE_GOOGLE_FORM_URL` in `.env` with your live Google Form link.</p>
+        ) : null}
+        {!isSheetConfigured ? (
+          <p className="error-msg">Set `VITE_GOOGLE_SHEET_URL` in `.env` with your response sheet link.</p>
+        ) : null}
       </motion.section>
     </div>
   );
 }
 
 export default RegisterPage;
+

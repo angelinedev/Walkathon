@@ -15,6 +15,26 @@ const links = [
   { to: '/faq', label: 'FAQ' }
 ];
 
+const eventLogos = [
+  { src: '/logos/maatrathai-nokki-tamil.png', alt: 'Maatrathai Nokki Tamil Logo' },
+  { src: '/logos/maatrathai-nokki-english.png', alt: 'Maatrathai Nokki Charitable Trust Logo' },
+  { src: '/logos/maatrathai-trust-wordmark.png', alt: 'Maatrathai Nokki Charitable Trust Wordmark' }
+];
+
+function LogoImage({ src, alt, className = '' }) {
+  return (
+    <img
+      src={src}
+      alt={alt}
+      className={className}
+      loading="lazy"
+      onError={(event) => {
+        event.currentTarget.style.display = 'none';
+      }}
+    />
+  );
+}
+
 function App() {
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -28,6 +48,12 @@ function App() {
             <FaPersonRunning aria-hidden="true" />
             <span>OMR Marathon 2026</span>
           </NavLink>
+
+          <div className="nav-logo-strip" aria-label="Organizer logos">
+            {eventLogos.map((logo) => (
+              <LogoImage key={logo.src} src={logo.src} alt={logo.alt} className="nav-logo" />
+            ))}
+          </div>
 
           <button
             className="menu-btn"
@@ -100,6 +126,11 @@ function App() {
         <div className="footer-tag">
           <FaPeopleGroup aria-hidden="true" />
           <span>Together for a Drug-Free Future</span>
+        </div>
+        <div className="footer-logo-strip" aria-label="Organizer logos in footer">
+          {eventLogos.map((logo) => (
+            <LogoImage key={`footer-${logo.src}`} src={logo.src} alt={logo.alt} className="footer-logo" />
+          ))}
         </div>
       </footer>
     </div>
