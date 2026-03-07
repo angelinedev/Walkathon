@@ -133,34 +133,7 @@ function RegisterPage() {
         <h2>Prize Amount Table</h2>
         <p>Structured for quick readability across all categories.</p>
 
-        <div className="table-wrap desktop-only">
-          <table className="prize-main-table">
-            <thead>
-              <tr>
-                <th>Run</th>
-                <th>Category</th>
-                <th>1st Prize</th>
-                <th>2nd Prize</th>
-                <th>3rd Prize</th>
-              </tr>
-            </thead>
-            <tbody>
-              {prizeAmounts.map((group) =>
-                group.rows.map((row, rowIndex) => (
-                  <tr key={`${group.event}-${row.category}`}>
-                    {rowIndex === 0 ? <td rowSpan={group.rows.length}>{group.event}</td> : null}
-                    <td>{row.category}</td>
-                    <td>{formatInr(row.first)}</td>
-                    <td>{formatInr(row.second)}</td>
-                    <td>{formatInr(row.third)}</td>
-                  </tr>
-                ))
-              )}
-            </tbody>
-          </table>
-        </div>
-
-        <div className="mobile-cards mobile-only">
+        <div className="mobile-cards prize-card-list">
           {prizeAmounts.map((group) => (
             <article className="mobile-data-card" key={group.event}>
               <h3>{group.event}</h3>
