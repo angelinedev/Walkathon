@@ -35,7 +35,7 @@ function HomePage() {
             </p>
           </div>
           <aside className="date-badge-card" aria-label="Event date">
-            <p>Date : 28th March 2026</p>
+            <p>Date : 28th June 2026</p>
             <p>Venue : PADUR OMR</p>
           </aside>
         </div>
@@ -135,3 +135,4 @@ function HomePage() {
 }
 
 export default HomePage;
+
