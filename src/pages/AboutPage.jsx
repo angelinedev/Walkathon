@@ -23,12 +23,12 @@ function AboutPage() {
         <h2>Marathon Memories</h2>
         <p>Look through moments from past runs and community participation.</p>
         <div className="gallery-grid gallery-three">
-          <img src="https://images.pexels.com/photos/2402777/pexels-photo-2402777.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Marathon runners on bridge" />
-          <img src="https://images.pexels.com/photos/3621181/pexels-photo-3621181.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="City marathon race" />
-          <img src="https://images.pexels.com/photos/3621104/pexels-photo-3621104.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Runner carrying Indian flag" />
-          <img src="https://images.pexels.com/photos/2284166/pexels-photo-2284166.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Community road run" />
-          <img src="https://images.pexels.com/photos/1072705/pexels-photo-1072705.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Crowd start point marathon" />
-          <img src="https://images.pexels.com/photos/3775592/pexels-photo-3775592.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Large group run from top view" />
+          <img src="/about-gallery/about-1.jpg" alt="Marathon runners on bridge" />
+          <img src="/about-gallery/about-2.jpg" alt="City marathon runners" />
+          <img src="/about-gallery/about-3.jpg" alt="Runner carrying Indian flag" />
+          <img src="/about-gallery/about-4.jpg" alt="Community road run" />
+          <img src="/about-gallery/about-5.jpg" alt="Crowd start point marathon" />
+          <img src="/about-gallery/about-6.jpg" alt="Large group run from top view" />
         </div>
       </motion.section>
 

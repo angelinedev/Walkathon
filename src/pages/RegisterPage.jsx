@@ -83,7 +83,9 @@ function RegisterPage() {
       <section className="page-head">
         <h1>Register for OMR Marathon 2026</h1>
         <p>Be part of an inspiring movement that combines fitness with social awareness.</p>
-      </section>`r`n      <section className="card">
+      </section>
+
+      <section className="card">
         <h2>Run Categories and Race Timing</h2>
         <div className="mobile-cards">
           {runCategories.map((category) => (

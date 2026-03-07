@@ -28,9 +28,9 @@ function HomePage() {
             </p>
           </div>
           <aside className="date-badge-card" aria-label="Event date placeholder">
-            <p>Date : tba</p>
-            <p>Time : tba</p>
-            <p>Location : tba</p>
+            <p>Date : TBA</p>
+            <p>Time : TBA</p>
+            <p>Location : TBA</p>
           </aside>
         </div>
         <div className="hero-actions">
