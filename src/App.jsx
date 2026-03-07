@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { NavLink, Route, Routes } from 'react-router-dom';
-import { FaPeopleGroup, FaPersonRunning } from 'react-icons/fa6';
+import { FaPeopleGroup } from 'react-icons/fa6';
 import HomePage from './pages/HomePage';
 import AboutPage from './pages/AboutPage';
 import RegisterPage from './pages/RegisterPage';
@@ -15,26 +15,6 @@ const links = [
   { to: '/faq', label: 'FAQ' }
 ];
 
-const eventLogos = [
-  { src: '/logos/maatrathai-nokki-tamil.jpg', alt: 'Maatrathai Nokki Tamil Logo' },
-  { src: '/logos/maatrathai-nokki-english.jpg', alt: 'Maatrathai Nokki Charitable Trust Logo' },
-  { src: '/logos/maatrathai-trust-wordmark.png', alt: 'Maatrathai Nokki Charitable Trust Wordmark' }
-];
-
-function LogoImage({ src, alt, className = '' }) {
-  return (
-    <img
-      src={src}
-      alt={alt}
-      className={className}
-      loading="lazy"
-      onError={(event) => {
-        event.currentTarget.style.display = 'none';
-      }}
-    />
-  );
-}
-
 function App() {
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -44,16 +24,16 @@ function App() {
     <div className="app-shell">
       <header className="top-nav-wrap">
         <nav className="top-nav" aria-label="Main navigation">
-          <NavLink to="/" className="brand" aria-label="OMR Marathon Home" onClick={closeMenu}>
-            <FaPersonRunning aria-hidden="true" />
-            <span>OMR Marathon 2026</span>
+          <NavLink to="/" className="brand brand-wordmark" aria-label="OMR Marathon Home" onClick={closeMenu}>
+            <img
+              src="/logos/maatrathai-trust-wordmark.png"
+              alt="Maatrathai Nokki Charitable Trust"
+              className="brand-wordmark-img"
+              onError={(event) => {
+                event.currentTarget.style.display = 'none';
+              }}
+            />
           </NavLink>
-
-          <div className="nav-logo-strip" aria-label="Organizer logos">
-            {eventLogos.map((logo) => (
-              <LogoImage key={logo.src} src={logo.src} alt={logo.alt} className="nav-logo" />
-            ))}
-          </div>
 
           <button
             className="menu-btn"
@@ -127,10 +107,15 @@ function App() {
           <FaPeopleGroup aria-hidden="true" />
           <span>Together for a Drug-Free Future</span>
         </div>
-        <div className="footer-logo-strip" aria-label="Organizer logos in footer">
-          {eventLogos.map((logo) => (
-            <LogoImage key={`footer-${logo.src}`} src={logo.src} alt={logo.alt} className="footer-logo" />
-          ))}
+        <div className="footer-logo-strip" aria-label="Organizer logo in footer">
+          <img
+            src="/logos/maatrathai-nokki-english.jpg"
+            alt="Maatrathai Nokki English Logo"
+            className="footer-logo"
+            onError={(event) => {
+              event.currentTarget.style.display = 'none';
+            }}
+          />
         </div>
       </footer>
     </div>
@@ -138,4 +123,3 @@ function App() {
 }
 
 export default App;
-

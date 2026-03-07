@@ -823,3 +823,19 @@ summary {
     display: none;
   }
 }
+
+.brand-wordmark {
+  gap: 0;
+}
+
+.brand-wordmark-img {
+  width: clamp(150px, 32vw, 280px);
+  height: auto;
+  display: block;
+}
+
+@media (max-width: 680px) {
+  .brand-wordmark-img {
+    width: min(62vw, 250px);
+  }
+}
