@@ -41,6 +41,21 @@ function HomePage() {
         </div>
       </section>
 
+      <section className="date-highlight">
+        <p className="date-label">Event Date</p>
+        <h2>Date: To Be Announced</h2>
+        <p>Update this section once final date and time are confirmed.</p>
+      </section>
+
+      <section className="marathon-gallery card">
+        <h2>Marathon Moments</h2>
+        <div className="gallery-grid">
+          <img src="https://images.pexels.com/photos/2402777/pexels-photo-2402777.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Runners starting a marathon event" />
+          <img src="https://images.pexels.com/photos/3621181/pexels-photo-3621181.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Participants running on city road" />
+          <img src="https://images.pexels.com/photos/3621104/pexels-photo-3621104.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Group marathon energy and crowd support" />
+        </div>
+      </section>
+
       <motion.section className="card" variants={reveal} initial="hidden" whileInView="show" viewport={{ once: true }}>
         <h2>About the Event</h2>
         <p>
