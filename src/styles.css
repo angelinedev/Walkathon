@@ -474,9 +474,10 @@ th {
 
 .prize-badge-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(92px, 1fr));
   gap: 0.45rem;
   margin-top: 0.35rem;
+  align-items: stretch;
 }
 
 .prize-badge {
@@ -496,7 +497,8 @@ th {
 
 .prize-badge strong {
   display: block;
-  font-size: 0.9rem;
+  font-size: 0.95rem;
+  white-space: nowrap;
 }
 
 .prize-badge.first {
@@ -700,13 +702,23 @@ summary {
   }
 }
 
-@media (max-width: 520px) {
-  .prize-badge-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
 @media (max-width: 380px) {
+  .prize-badge-grid {
+    grid-template-columns: repeat(3, minmax(82px, 1fr));
+    gap: 0.35rem;
+  }
+
+  .prize-badge {
+    padding: 0.35rem;
+  }
+
+  .prize-badge span {
+    font-size: 0.75rem;
+  }
+
+  .prize-badge strong {
+    font-size: 0.82rem;
+  }
   .brand {
     font-size: 0.96rem;
   }
