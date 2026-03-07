@@ -10,10 +10,10 @@ const RAZORPAY_KEY_ID = import.meta.env.VITE_RAZORPAY_KEY_ID || '';
 const API_BASE = (import.meta.env.VITE_API_BASE_URL || '').replace(/\/$/, '');
 
 const registrationFees = {
-  '3 KM - Fun Run': 300,
-  '5 KM - Awareness Run': 500,
-  '10 KM - Challenge Run': 700,
-  '16 KM - Endurance Run': 900,
+  '3 KM - Fun Run': 500,
+  '5 KM - Awareness Run': 700,
+  '10 KM - Challenge Run': 800,
+  '16 KM - Endurance Run': 1000,
   '21 KM - Half Marathon': 1200
 };
 
@@ -270,4 +270,5 @@ function RegisterPage() {
 }
 
 export default RegisterPage;
+
 

@@ -95,15 +95,15 @@ function App() {
       </main>
 
       <footer className="site-footer">
-        <div>
+        <div className="footer-block">
           <h3>OMR Marathon 2026</h3>
           <p>Run Against Drugs. Run for Life.</p>
         </div>
-        <div>
+        <div className="footer-block">
           <h3>Powered by</h3>
           <p>Maatrathai Nokki Charitable Trust</p>
         </div>
-        <div className="footer-tag">
+        <div className="footer-block footer-tag">
           <FaPeopleGroup aria-hidden="true" />
           <span>Together for a Drug-Free Future</span>
         </div>
@@ -123,3 +123,4 @@ function App() {
 }
 
 export default App;
+
