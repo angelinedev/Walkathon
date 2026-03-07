@@ -13,7 +13,14 @@ function HomePage() {
     <div className="page">
       <section className="home-top-banner" aria-label="Top banner">
         <div className="home-top-banner-inner">
-          <div className="home-banner-slot">Banner Space</div>
+          <img
+            src="/1920x1080.jpg.jpeg"
+            alt="OMR Marathon 2026 Event Banner"
+            className="home-banner-image"
+            onError={(event) => {
+              event.currentTarget.style.display = 'none';
+            }}
+          />
         </div>
       </section>
 
@@ -129,4 +136,3 @@ function HomePage() {
 }
 
 export default HomePage;
-
