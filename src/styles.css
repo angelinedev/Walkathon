@@ -914,40 +914,40 @@ summary {
 }
 
 .home-top-banner-inner {
-  min-height: 56vh;
   background: #0d4f49;
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 0;
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .home-banner-image {
-  width: 100%;
-  min-height: 56vh;
-  max-height: 90vh;
-  object-fit: cover;
+  width: min(1100px, calc(100vw - 2rem));
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
   object-position: center;
   display: block;
 }
 
 @media (max-width: 900px) {
   .home-top-banner-inner {
-    min-height: 42vh;
+    padding: 0.6rem 0;
   }
 
   .home-banner-image {
-    min-height: 42vh;
-    max-height: 72vh;
+    width: calc(100vw - 1.2rem);
   }
 }
 
 @media (max-width: 680px) {
   .home-top-banner-inner {
-    min-height: 36vh;
+    padding: 0.45rem 0;
   }
 
   .home-banner-image {
-    min-height: 36vh;
-    max-height: 62vh;
-    object-position: center top;
+    width: calc(100vw - 0.8rem);
   }
 }
+

@@ -169,10 +169,7 @@ function RegisterPage() {
       </section>
 
       <section className="card">
-        <h2>Prize Amount Table</h2>
-        <p>Structured for quick readability across all categories.</p>
-
-        <div className="mobile-cards prize-card-list">
+        <h2>Prize Amount Table</h2>`r`n<div className="mobile-cards prize-card-list">
           {prizeAmounts.map((group) => (
             <article className="mobile-data-card" key={group.event}>
               <h3>{group.event}</h3>
@@ -270,6 +267,10 @@ function RegisterPage() {
 }
 
 export default RegisterPage;
+
+
+
+
 
 
 

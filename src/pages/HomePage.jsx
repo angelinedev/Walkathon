@@ -34,10 +34,9 @@ function HomePage() {
               and families on OMR to promote a healthy, drug-free society.
             </p>
           </div>
-          <aside className="date-badge-card" aria-label="Event date placeholder">
-            <p>Date : TBA</p>
-            <p>Time : TBA</p>
-            <p>Location : TBA</p>
+          <aside className="date-badge-card" aria-label="Event date">
+            <p>Date : 28th March 2026</p>
+            <p>Venue : PADUR OMR</p>
           </aside>
         </div>
         <div className="hero-actions">
