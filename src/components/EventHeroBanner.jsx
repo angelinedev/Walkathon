@@ -5,7 +5,7 @@ function EventHeroBanner() {
     <section className="event-hero" aria-label="Event banner">
       <div className="event-hero-grid">
         <div className="event-hero-copy">
-          <p className="event-hero-kicker">OMR MARATHON 2026 POWERED BY MAATRATHAI NOKKI (Tamil)</p>
+          <p className="event-hero-kicker">OMR MARATHON 2026 POWERED BY MAATRATHAI NOKKI</p>
           <h1>OMR Marathon 2026</h1>
           <p>Run Against Drugs. Run for a Better Future.</p>
           <div className="hero-actions">
@@ -26,3 +26,4 @@ function EventHeroBanner() {
 }
 
 export default EventHeroBanner;
+

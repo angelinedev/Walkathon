@@ -1,16 +1,145 @@
+import { useMemo, useState } from 'react';
 import { motion } from 'framer-motion';
 import { prizeAmounts, runCategories } from '../data';
 
-const GOOGLE_FORM_URL = import.meta.env.VITE_GOOGLE_FORM_URL || 'https://forms.gle/REPLACE_WITH_YOUR_FORM';
-const GOOGLE_SHEET_URL =
-  import.meta.env.VITE_GOOGLE_SHEET_URL ||
-  'https://docs.google.com/spreadsheets/d/REPLACE_WITH_YOUR_SHEET_ID/edit?usp=sharing';
+const RAW_GOOGLE_FORM_URL =
+  import.meta.env.VITE_GOOGLE_FORM_URL || 'https://docs.google.com/forms/d/1KeRMRSgGTEkzD3Avbh_PmoalRtOou-r1dysbwLHTHqY/edit#responses';
+const GOOGLE_FORM_URL = RAW_GOOGLE_FORM_URL.replace('/edit#responses', '/viewform').replace('/edit', '/viewform');
 
-const isFormConfigured = !GOOGLE_FORM_URL.includes('REPLACE_WITH_YOUR_FORM');
-const isSheetConfigured = !GOOGLE_SHEET_URL.includes('REPLACE_WITH_YOUR_SHEET_ID');
+const RAZORPAY_KEY_ID = import.meta.env.VITE_RAZORPAY_KEY_ID || '';
+const API_BASE = (import.meta.env.VITE_API_BASE_URL || '').replace(/\/$/, '');
+
+const registrationFees = {
+  '3 KM - Fun Run': 300,
+  '5 KM - Awareness Run': 500,
+  '10 KM - Challenge Run': 700,
+  '16 KM - Endurance Run': 900,
+  '21 KM - Half Marathon': 1200
+};
 
 function RegisterPage() {
+  const [paymentData, setPaymentData] = useState({
+    fullName: '',
+    email: '',
+    phone: '',
+    runCategory: runCategories[0]?.name || ''
+  });
+  const [isPaying, setIsPaying] = useState(false);
+  const [payMessage, setPayMessage] = useState('');
+  const [payError, setPayError] = useState('');
+
+  const categoryOptions = useMemo(() => runCategories.map((item) => item.name), []);
+  const selectedFee = registrationFees[paymentData.runCategory] || 0;
+
   const formatInr = (value) => `Rs ${value.toLocaleString('en-IN')}`;
+
+  const onPaymentFieldChange = (event) => {
+    const { name, value } = event.target;
+    setPaymentData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const loadRazorpayScript = () =>
+    new Promise((resolve) => {
+      if (window.Razorpay) {
+        resolve(true);
+        return;
+      }
+
+      const script = document.createElement('script');
+      script.src = 'https://checkout.razorpay.com/v1/checkout.js';
+      script.async = true;
+      script.onload = () => resolve(true);
+      script.onerror = () => resolve(false);
+      document.body.appendChild(script);
+    });
+
+  const onPayNow = async () => {
+    setPayMessage('');
+    setPayError('');
+
+    if (!RAZORPAY_KEY_ID) {
+      setPayError('Missing Razorpay key. Set VITE_RAZORPAY_KEY_ID in .env.');
+      return;
+    }
+
+    if (!paymentData.fullName || !paymentData.email || !paymentData.phone || !paymentData.runCategory) {
+      setPayError('Please complete all payment fields.');
+      return;
+    }
+
+    const scriptLoaded = await loadRazorpayScript();
+    if (!scriptLoaded) {
+      setPayError('Razorpay SDK failed to load. Check internet and try again.');
+      return;
+    }
+
+    setIsPaying(true);
+
+    try {
+      const response = await fetch(`${API_BASE}/api/create-order`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          amount: selectedFee,
+          name: paymentData.fullName,
+          email: paymentData.email,
+          phone: paymentData.phone,
+          category: paymentData.runCategory
+        })
+      });
+
+      const orderResult = await response.json();
+      if (!response.ok || !orderResult.success) {
+        throw new Error(orderResult.message || 'Unable to create payment order.');
+      }
+
+      const options = {
+        key: RAZORPAY_KEY_ID,
+        amount: orderResult.order.amount,
+        currency: orderResult.order.currency,
+        name: 'OMR Marathon 2026',
+        description: `${paymentData.runCategory} Registration`,
+        order_id: orderResult.order.id,
+        prefill: {
+          name: paymentData.fullName,
+          email: paymentData.email,
+          contact: paymentData.phone
+        },
+        notes: {
+          category: paymentData.runCategory
+        },
+        theme: {
+          color: '#0f766e'
+        },
+        handler: async (paymentResponse) => {
+          const verifyResponse = await fetch(`${API_BASE}/api/verify-payment`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(paymentResponse)
+          });
+
+          const verifyResult = await verifyResponse.json();
+          if (!verifyResponse.ok || !verifyResult.success) {
+            setPayError('Payment received but verification failed. Please contact support with payment ID.');
+            return;
+          }
+
+          setPayMessage(`Payment successful. Payment ID: ${paymentResponse.razorpay_payment_id}`);
+        }
+      };
+
+      const razorpay = new window.Razorpay(options);
+      razorpay.on('payment.failed', (event) => {
+        const reason = event?.error?.description || 'Payment failed. Please try again.';
+        setPayError(reason);
+      });
+      razorpay.open();
+    } catch (error) {
+      setPayError(error.message || 'Unable to start payment.');
+    } finally {
+      setIsPaying(false);
+    }
+  };
 
   return (
     <div className="page">
@@ -85,54 +214,57 @@ function RegisterPage() {
         </ul>
       </section>
 
-      <section className="card payment-card">
-        <h2>Payment Gateway</h2>
-        <p>Accepted modes: UPI, Credit Card, Debit Card, Net Banking, Wallets.</p>
-        <div className="payment-grid">
-          <div className="pay-chip">UPI</div>
-          <div className="pay-chip">Card</div>
-          <div className="pay-chip">Net Banking</div>
-          <div className="pay-chip">Wallet</div>
-          <div className="pay-chip">QR</div>
-        </div>
-        <p className="payment-note">Razorpay integration is ready to be initialized once your keys and webhook details are shared.</p>
-      </section>
-
-      <motion.section className="card" initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-        <h2>Registration Submission</h2>
-        <p>
-          Registration entries are now collected through Google Form and stored directly in Google Sheets (Excel-like
-          format).
-        </p>
-
+      <section className="card">
+        <h2>Registration Submission (Google Form)</h2>
+        <p>Fill the registration details in the official Google Form. Responses are saved privately in your sheet.</p>
         <div className="hero-actions">
-          <a
-            className={`btn btn-primary ${isFormConfigured ? "" : "btn-disabled"}` }
-            href={GOOGLE_FORM_URL}
-            target="_blank"
-            rel="noreferrer"
-            aria-disabled={!isFormConfigured}
-          >
+          <a className="btn btn-primary" href={GOOGLE_FORM_URL} target="_blank" rel="noreferrer">
             Open Google Form
           </a>
-          <a
-            className={`btn btn-secondary ${isSheetConfigured ? "" : "btn-disabled"}` }
-            href={GOOGLE_SHEET_URL}
-            target="_blank"
-            rel="noreferrer"
-            aria-disabled={!isSheetConfigured}
-          >
-            Open Response Sheet
-          </a>
+        </div>
+      </section>
+
+      <section className="card payment-card">
+        <h2>Razorpay Payment Gateway</h2>
+        <p>Complete payment after form submission. This checkout supports UPI, cards, net banking, and wallets.</p>
+
+        <div className="register-form">
+          <label>
+            Full Name
+            <input name="fullName" value={paymentData.fullName} onChange={onPaymentFieldChange} required />
+          </label>
+
+          <label>
+            Email Address
+            <input type="email" name="email" value={paymentData.email} onChange={onPaymentFieldChange} required />
+          </label>
+
+          <label>
+            Phone Number
+            <input name="phone" value={paymentData.phone} onChange={onPaymentFieldChange} required />
+          </label>
+
+          <label>
+            Run Category
+            <select name="runCategory" value={paymentData.runCategory} onChange={onPaymentFieldChange} required>
+              {categoryOptions.map((name) => (
+                <option key={name}>{name}</option>
+              ))}
+            </select>
+          </label>
         </div>
 
-        {!isFormConfigured ? (
-          <p className="error-msg">Set `VITE_GOOGLE_FORM_URL` in `.env` with your live Google Form link.</p>
-        ) : null}
-        {!isSheetConfigured ? (
-          <p className="error-msg">Set `VITE_GOOGLE_SHEET_URL` in `.env` with your response sheet link.</p>
-        ) : null}
-      </motion.section>
+        <p className="payment-note">
+          Registration Fee: <strong>{formatInr(selectedFee)}</strong>
+        </p>
+
+        <button className="btn btn-primary" type="button" onClick={onPayNow} disabled={isPaying}>
+          {isPaying ? 'Starting Payment...' : 'Pay with Razorpay'}
+        </button>
+
+        {payMessage ? <p className="success-msg">{payMessage}</p> : null}
+        {payError ? <p className="error-msg">{payError}</p> : null}
+      </section>
     </div>
   );
 }

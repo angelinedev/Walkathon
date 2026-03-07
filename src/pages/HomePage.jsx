@@ -18,7 +18,7 @@ function HomePage() {
       </section>
 
       <section className="hero-intro card">
-        <p className="eyebrow">OMR MARATHON 2026 POWERED BY MAATRATHAI NOKKI (TAMIL)</p>
+        <p className="eyebrow">OMR MARATHON 2026 POWERED BY MAATRATHAI NOKKI</p>
         <div className="hero-intro-top">
           <div>
             <h1>Run Against Drugs. Run for a Better Future.</h1>
@@ -129,3 +129,4 @@ function HomePage() {
 }
 
 export default HomePage;
+

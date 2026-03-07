@@ -16,8 +16,8 @@ const links = [
 ];
 
 const eventLogos = [
-  { src: '/logos/maatrathai-nokki-tamil.png', alt: 'Maatrathai Nokki Tamil Logo' },
-  { src: '/logos/maatrathai-nokki-english.png', alt: 'Maatrathai Nokki Charitable Trust Logo' },
+  { src: '/logos/maatrathai-nokki-tamil.jpg', alt: 'Maatrathai Nokki Tamil Logo' },
+  { src: '/logos/maatrathai-nokki-english.jpg', alt: 'Maatrathai Nokki Charitable Trust Logo' },
   { src: '/logos/maatrathai-trust-wordmark.png', alt: 'Maatrathai Nokki Charitable Trust Wordmark' }
 ];
 
@@ -121,7 +121,7 @@ function App() {
         </div>
         <div>
           <h3>Powered by</h3>
-          <p>Maatrathai Nokki Charitable Trust (Tamil)</p>
+          <p>Maatrathai Nokki Charitable Trust</p>
         </div>
         <div className="footer-tag">
           <FaPeopleGroup aria-hidden="true" />
@@ -138,3 +138,4 @@ function App() {
 }
 
 export default App;
+
